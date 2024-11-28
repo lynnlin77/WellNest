@@ -13,3 +13,14 @@
   font-size: calc(1px + 2vmin);
   color: white;
 }
+
+body {
+  font-family: 'Parkinsans', sans-serif;
+}
+
+
+/* If you want to apply a specific font to just certain elements */
+h1, h2, h3, p {
+  font-family: 'Parkinsans', sans-serif;
+}
+

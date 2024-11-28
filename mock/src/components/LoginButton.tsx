@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import '../styles/LoginButton.css';
 
 /**
  * An interface for logged-in state for mock.
@@ -13,11 +14,11 @@ interface loginProps {
 }
 
 /**
- * Builds a component that manage the login button and end-user's logged in state.
+ * Builds a component that manages the login button and end-user's logged-in state.
  *
  * @param props to access logged-in state (see interface loginProps for more details)
  * @returns JSX to let user know they can sign out if they are logged in
- *  or log-in if they are not logged in
+ *  or log in if they are not logged in
  */
 export function LoginButton(props: loginProps) {
   /**
@@ -33,17 +34,13 @@ export function LoginButton(props: loginProps) {
     return newValue;
   };
 
-  if (props.isLoggedIn) {
-    return (
-      <button aria-label="Sign Out" onClick={authenticate}>
-        Sign out
-      </button>
-    );
-  } else {
-    return (
-      <button aria-label="Login" onClick={authenticate}>
-        Login
-      </button>
-    );
-  }
+  return (
+    <button 
+      aria-label={props.isLoggedIn ? "Sign Out" : "Login"} 
+      onClick={authenticate} 
+      className={props.isLoggedIn ? "sign-out-button" : "login-button"}
+    >
+      {props.isLoggedIn ? "Sign out" : "Login"}
+    </button>
+  );
 }

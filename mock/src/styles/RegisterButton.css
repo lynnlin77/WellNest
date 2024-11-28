@@ -1,0 +1,19 @@
+.register-button {
+  padding: 12px 24px;
+  background-color: #81f676; /* Purple background */
+  color: white; /* White text */
+  font-size: 30px; /* Text size */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+  width: 150px;
+  text-align: center;  /* Centers the text horizontally */
+  display: flex;       /* Enables Flexbox */
+  justify-content: center;  /* Centers text horizontally */
+  align-items: center;  /* Centers text vertically */
+}
+
+.register-button:hover {
+  background-color: #56de49; /* Darker purple on hover */
+}

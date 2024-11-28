@@ -1,0 +1,32 @@
+/* LoginButton.css */
+
+/* General styles for both buttons */
+button {
+  padding: 10px 20px;
+  font-size: 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 150px;
+}
+
+/* Styles for the Login button */
+button[aria-label="Login"] {
+  background-color: #3692fc; /* Green for login */
+  color: white;
+}
+
+button[aria-label="Login"]:hover {
+  background-color: #167aed;
+}
+
+/* Styles for the Sign Out button */
+button[aria-label="Sign Out"] {
+  background-color: #f44336; /* Red for sign out */
+  color: white;
+}
+
+button[aria-label="Sign Out"]:hover {
+  background-color: #e53935;
+}
