@@ -1,0 +1,49 @@
+/* .table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+ */
+
+/* Container for the table with scrollable content */
+.table-container {
+  max-height: 500px; /* Set max height to make the table scrollable */
+  max-width: 1500px;
+  overflow-y: auto;  /* Enable vertical scrolling */
+  overflow-x: auto; /* Prevent horizontal scrolling */
+  border: 1px solid #ddd; /* Optional: Add border to the container */
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse; /* Ensures borders are shared between cells */
+}
+
+/* Table header and cell styling */
+.table th,
+.table td {
+  border: 1px solid #ddd; /* Adds a thin border between cells */
+  padding: 12px; /* Adds spacing within each cell */
+  text-align: left; /* Aligns text to the left */
+}
+
+/* Table header styling */
+.table th {
+  background-color: #f2f2f2; /* Adds a subtle background color to header */
+  font-weight: bold; /* Makes the header text bold */
+  position: sticky; /* Makes the header sticky */
+  top: 0;           /* Keeps the header at the top when scrolling */
+  z-index: 1;       /* Ensures the header stays above the table rows */
+}
