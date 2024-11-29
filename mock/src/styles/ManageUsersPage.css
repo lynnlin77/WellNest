@@ -1,0 +1,118 @@
+.manage-users-page {
+  font-family: 'Parkinsans', sans-serif;
+}
+
+.manage-users-header {
+  text-align: center;
+}
+
+h1 {
+  color: purple;
+}
+
+h2 {
+  margin-top: 20px;
+  /* text-align: left; */
+}
+
+.user-container {
+  margin-top: 20px;
+  align-items: left;
+}
+
+.email-input {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 0px solid #ccc;
+  font-family: 'Parkinsans', sans-serif;
+  color: #333; /* Change text color */
+  background-color: #f0f0f0; /* Background color */
+  width: 600px;
+  height: 25px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* .button-container {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 10px;
+} */
+
+.add-user-container {
+  display: flex;
+  align-items: center; /* Keeps items vertically aligned */
+  justify-content: flex-start; /* Keeps items left-aligned */
+  gap: 10px; /* Adds space between children instead of relying on margin */
+  width: 51%;
+  margin-top: 10px;
+}
+
+.add-user-button {
+  padding: 10px 20px; /* Keeps button size consistent */
+  margin-right: 10px;
+  background-color: #81f676;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.3em;
+  flex-shrink: 0; /* Prevents the button from shrinking or stretching */
+  white-space: nowrap; /* Ensures text stays on one line */
+}
+
+.add-user-button:hover {
+  background-color: #66d142;
+}
+
+.add-user-text {
+  font-size: 14px;
+  color: #333;
+  text-align: left;
+  flex-shrink: 1; /* Allows the text to adjust as needed */
+}
+
+
+.user-box {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.user-name {
+  font-weight: bold;
+  margin: 0;
+  text-align: left;
+}
+
+.user-email {
+  margin: 0;
+  text-align: left;
+  align-items: left;
+}
+
+.manage-users-page .go-back-button-container {
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+}
+
+.manage-users-page .go-back-button-container button {
+  padding: 10px 20px;
+  background-color: purple;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.manage-users-page .go-back-button-container button:hover {
+  background-color: #1e0066;
+}

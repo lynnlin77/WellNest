@@ -1,0 +1,89 @@
+/* CheckInPage.css */
+
+/* Overall container styles */
+.checkin-page {
+  text-align: center;
+  padding: 20px;
+  font-family: 'Parkinsans', sans-serif;
+  position: relative;
+  min-height: 100vh; /* Ensures the container takes at least the full height of the viewport */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers content horizontally */
+}
+
+/* Header styles */
+.checkin-page h1 {
+  color: purple;
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  font-family: 'Parkinsans', sans-serif;
+}
+
+.checkin-page h3 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: black;
+  font-family: 'Parkinsans', sans-serif;
+}
+
+/* Button container styles */
+.checkin-page .button-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Only target plain buttons within .checkin-page */
+.checkin-page .map-button {
+  background-color: purple;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  font-family: 'Parkinsans', sans-serif;
+}
+
+.checkin-page .map-button:hover {
+  transform: scale(1.05); /* Slightly enlarge button on hover */
+  opacity: 0.9; /* Slightly reduce transparency on hover */
+}
+
+.checkin-page .go-back-button-container {
+  position: absolute;
+  bottom: 70px;
+  left: 20px;
+}
+
+.checkin-page .go-back-button-container button {
+  padding: 10px 20px;
+  background-color: purple;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.checkin-page .go-back-button-container button:hover {
+  background-color: #1e0066;
+}
+
+/* Container for the paragraphs */
+.checkin-page .paragraph-container {
+  text-align: left; /* Left-align the text inside the container */
+  width: 100%; /* Optional: adjusts the width of the container */
+  margin: 10px 0; /* Space between paragraphs */
+}
+
+/* Paragraph styles */
+.checkin-page p {
+  font-size: 1.1em;
+  color: black;
+  font-family: 'Parkinsans', sans-serif;
+  margin: 10px 0; /* Adjusts spacing between paragraphs */
+}
+

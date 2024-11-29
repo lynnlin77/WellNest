@@ -1,0 +1,46 @@
+/* General Dashboard styles */
+.dashboard {
+  text-align: center;
+  padding: 20px;
+}
+
+/* Header styles */
+.dashboard-header {
+  background-color: lightgrey; /* Gray background */
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px; /* Optional: round edges */
+}
+
+.dashboard-header-title {
+  margin: 0;
+  color: purple; /* Use proper CSS syntax for colors */
+  font-size: 2.5em; /* Adjust font size */
+  font-weight: bold;
+  font-family: 'Parkinsans', sans-serif;
+}
+
+.dashboard-subtitle {
+  margin: 0;
+  font-weight: bold;
+  font-family: 'Parkinsans', sans-serif;
+}
+
+.dashboard .logout-button-container {
+  position: absolute;
+  bottom: 20px;  /* Adjust as needed */
+  left: 20px;    /* Adjust as needed */
+}
+
+.dashboard .logout-button-container button {
+  padding: 10px 20px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dashboard .logout-button-container button:hover {
+  background-color: #b72e2a;
+}

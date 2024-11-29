@@ -1,0 +1,26 @@
+.styled-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  color: white; /* Set text color to white */
+  font-size: 30px; /* Adjust text size */
+  font-weight: bold; /* Make the text bold */
+  cursor: pointer;
+  width: 250px;
+  height:80px;
+  text-align: center;  /* Centers the text horizontally */
+  display: flex;       /* Enables Flexbox */
+  justify-content: center;  /* Centers text horizontally */
+  align-items: center;  /* Centers text vertically */
+  font-family: 'Parkinsans', sans-serif;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover and click effects */
+}
+
+.styled-button:hover {
+  transform: scale(1.05); /* Slightly enlarge button on hover */
+  opacity: 0.9; /* Slightly reduce transparency on hover */
+}
+
+.styled-button:active {
+  transform: scale(0.95); /* Slightly shrink button when clicked */
+}
