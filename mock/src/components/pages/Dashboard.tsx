@@ -54,9 +54,10 @@ import ManageUsersPage from "./ManageUsersPage"; // Import ManageUsersPage
 interface DashboardProps {
   onLogout: () => void;
   onCheckIn: () => void;
+  onUserData: () => void; // This prop should handle user data navigation
 }
 
-function Dashboard({ onLogout, onCheckIn }: DashboardProps) {
+function Dashboard({ onLogout, onCheckIn, onUserData }: DashboardProps) {
   const [showManageUsersPage, setShowManageUsersPage] = useState(false);
 
   const handleManageUsersClick = () => {
@@ -96,6 +97,16 @@ function Dashboard({ onLogout, onCheckIn }: DashboardProps) {
           </StyledButton>
           <br />
 
+          <h3 className="dashboard-subtitle">
+            Do you want to view your data? <br /> Click View Data
+          </h3>
+          <br />
+          {/* User Data button */}
+          <StyledButton onClick={onUserData} color="#f6a242">
+            View Data
+          </StyledButton>
+          <br />
+
           <div className="logout-button-container">
             <StyledButton onClick={onLogout} color="purple">
               Logout
@@ -111,4 +122,3 @@ function Dashboard({ onLogout, onCheckIn }: DashboardProps) {
 }
 
 export default Dashboard;
-

@@ -128,22 +128,17 @@ function ManageUsersPage({ onBack }: ManageUsersPageProps) {
         ))}
 
         {/* Empty box for adding a new user */}
-          <input
-            type="email"
-            value={newUserEmail}
-            onChange={(e) => setNewUserEmail(e.target.value)}
-            placeholder="Enter email to add user"
-            className="email-input"
-          />
+        <input
+          type="email"
+          value={newUserEmail}
+          onChange={(e) => setNewUserEmail(e.target.value)}
+          placeholder="Enter email to add user"
+          className="email-input"
+        />
 
         {/* Button and text */}
       </div>
-      {/* <div className="add-user-container">
-          <StyledButton onClick={handleAddUser} color="#81f676">
-            Add User
-          </StyledButton>
-          <p className="add-user-text">Click to add a user</p>
-      </div> */}
+
       <div className="add-user-container">
         <button onClick={handleAddUser} className="add-user-button">
           Add User

@@ -4,6 +4,7 @@
 
 .manage-users-header {
   text-align: center;
+  position: relative; /* Keeps the header context for absolute positioning */
 }
 
 h1 {
@@ -34,13 +35,6 @@ h2 {
   margin-left: auto;
   margin-right: auto;
 }
-
-/* .button-container {
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-  margin-top: 10px;
-} */
 
 .add-user-container {
   display: flex;
@@ -75,7 +69,6 @@ h2 {
   flex-shrink: 1; /* Allows the text to adjust as needed */
 }
 
-
 .user-box {
   background-color: #f0f0f0;
   padding: 10px;
@@ -98,6 +91,7 @@ h2 {
   align-items: left;
 }
 
+/* Go Back Button Positioning */
 .manage-users-page .go-back-button-container {
   position: absolute;
   bottom: 30px;
@@ -115,4 +109,25 @@ h2 {
 
 .manage-users-page .go-back-button-container button:hover {
   background-color: #1e0066;
+}
+
+/* User Data Button Positioning (bottom-right corner) */
+.user-data-button-container {
+  position: absolute;
+  bottom: 30px;
+  right: 20px;
+}
+
+.user-data-button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.user-data-button:hover {
+  background-color: #45a049;
 }
