@@ -1,22 +1,20 @@
-//import { initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app";
 import React, { useState } from "react";
 import LoginPage from "./LoginPage";
 import Dashboard from "./pages/Dashboard";
 import CheckInPage from "./pages/CheckInPage";
-import UserPage from "./pages/UserPage"; 
+import UserPage from "./pages/UserPage";
 
-/*
 const firebaseConfig = {
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCKET,
-  messagingSenderId: process.env.MESSAGING_SENDER_ID,
-  appId: process.env.APP_ID,
+  apiKey: import.meta.env.API_KEY,
+  authDomain: import.meta.env.AUTH_DOMAIN,
+  projectId: import.meta.env.PROJECT_ID,
+  storageBucket: import.meta.env.STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.MESSAGING_SENDER_ID,
+  appId: import.meta.env.APP_ID,
 };
-*/
 
-//initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 function App() {
   const [currentPage, setCurrentPage] = useState("login"); // Tracks the current page
@@ -36,14 +34,14 @@ function App() {
     return <CheckInPage onBack={goToDashboard} />;
   }
 
-  if (currentPage === "userData") { 
+  if (currentPage === "userData") {
     return <UserPage onBack={goBackToDashboard} />; // Pass goBack as a prop to UserPage
   }
 
   return (
-    <Dashboard 
-      onLogout={handleLogout} 
-      onCheckIn={goToCheckInPage} 
+    <Dashboard
+      onLogout={handleLogout}
+      onCheckIn={goToCheckInPage}
       onUserData={goToDataPage} // Pass the function to navigate to User Data page
     />
   );
