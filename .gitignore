@@ -21,3 +21,4 @@ firebase_config.json
 
 # mac
 .DS_Store
+node_modules
