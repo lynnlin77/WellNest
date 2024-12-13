@@ -12,6 +12,7 @@ export async function addAllowedUser({
   userId,
   userToAdd,
 }: z.infer<typeof addAllowedUserQuerySchema>) {
+  console.log(`addAllowedUser called with userId: ${userId}, userToAdd: ${userToAdd}`);
 
  try {
 

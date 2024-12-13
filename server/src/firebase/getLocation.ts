@@ -10,6 +10,7 @@ export const getLocationQuerySchema = z
 export async function getLocation({
   userId
 }: z.infer<typeof getLocationQuerySchema>) {
+
   const users = collection(firestore, "users");
 
   const testUserDoc = doc(users, userId);

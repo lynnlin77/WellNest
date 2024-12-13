@@ -5,6 +5,7 @@
   "description": "Brown CSCI0320 Sprint 3 Gearup for Fall 2023",
   "license": "UNLICENSED",
   "dependencies": {
+    "@clerk/clerk-react": "^5.20.1",
     "chart.js": "^4.4.5",
     "dotenv": "^16.4.7",
     "firebase": "^11.0.2",

@@ -2,6 +2,14 @@ import React from "react";
 import { LoginButton } from "./LoginButton";
 import RegisterButton from "./RegisterButton";
 import "../styles/LoginPage.css"; // Import the styles
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignOutButton,
+  UserButton,
+  SignUpButton,
+} from "@clerk/clerk-react";
 
 interface LoginPageProps {
   onLogin: () => void;
@@ -20,18 +28,32 @@ function LoginPage({ onLogin }: LoginPageProps) {
         {/* Left Component */}
         <div>
           <h3>Is it your first time <br /> using this site?</h3>
-          <RegisterButton onClick={() => alert('Register button clicked!')} />
+          <div className="register-button">
+            <SignUpButton />
+          </div>
+          {/* <RegisterButton onClick={() => alert('Register button clicked!')} /> */}
         </div>
 
         {/* Right Component */}
         <div>
           <h3>Already a user?</h3>
           <br />
-          <LoginButton isLoggedIn={false} setIsLoggedIn={onLogin} />
+          <SignedOut>
+            <SignInButton></SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <SignOutButton></SignOutButton>
+            <br />
+            <LoginButton isLoggedIn={false} setIsLoggedIn={onLogin} />
+          </SignedIn>
+          {/* <LoginButton isLoggedIn={false} setIsLoggedIn={onLogin} /> */}
         </div>
+
       </div>
     </div>
   );
 }
 
 export default LoginPage;
+
+
