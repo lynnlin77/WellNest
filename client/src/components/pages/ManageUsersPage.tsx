@@ -54,8 +54,8 @@ function ManageUsersPage({ onBack }: ManageUsersPageProps) {
     }
 
     try {
-      const storageKey = `allowedUsers-${user?.id}`;
       const userEmail = user.primaryEmailAddress?.emailAddress;
+      const storageKey = `allowedUsers-${userEmail}`;
       const response = await addAllowedUserAPI(userEmail || "", newUserEmail);
 
       if (response.success) {
