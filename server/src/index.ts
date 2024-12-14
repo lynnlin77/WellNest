@@ -9,6 +9,21 @@ import { zValidator } from "@hono/zod-validator";
 
 const app = new Hono();
 
+// CORS middleware
+app.use("*", async (c, next) => {
+  c.res.headers.append("Access-Control-Allow-Origin", "*");
+  c.res.headers.append("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  c.res.headers.append("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  if (c.req.method === "OPTIONS") {
+    // Handle preflight request
+    return c.text("", 204);
+  }
+
+  await next();
+});
+
+// Routes
 app.get("/add-location", zValidator("query", addLocationQuerySchema), async (c) => {
   const query = c.req.valid("query");
   const location = await addLocation(query);
@@ -33,6 +48,7 @@ app.get("/get-allowed-users", zValidator("query", getAllowedUsersQuerySchema), a
   return c.json(location, 200);
 });
 
+// Server setup
 const port = 3000;
 console.log(`Server is running on http://localhost:${port}`);
 

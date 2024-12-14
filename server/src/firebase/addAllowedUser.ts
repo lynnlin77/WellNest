@@ -2,48 +2,49 @@ import { z } from "zod";
 import { firestore } from "./index.js";
 import { collection, doc, setDoc, getDoc } from "firebase/firestore";
 
-export const addAllowedUserQuerySchema = z
-  .object({
-    userId: z.string(),
-    userToAdd: z.string(),
-  })
+export const addAllowedUserQuerySchema = z.object({
+  userId: z.string().nonempty("userId is required."),
+  userToAdd: z.string().email("userToAdd must be a valid email address."),
+});
 
 export async function addAllowedUser({
   userId,
   userToAdd,
 }: z.infer<typeof addAllowedUserQuerySchema>) {
-  console.log(`addAllowedUser called with userId: ${userId}, userToAdd: ${userToAdd}`);
+  try {
+    // Firestore collections and documents
+    const usersCollection = collection(firestore, "users");
+    const userDocRef = doc(usersCollection, userId);
 
- try {
-
-  const users = collection(firestore, "users");
-
-  const testUserDoc = doc(users, userId);
-
-  const userDocSnapshot = await getDoc(testUserDoc);
-  if (!userDocSnapshot.exists()) {
-    return {
+    // Check if the user exists
+    const userDocSnapshot = await getDoc(userDocRef);
+    if (!userDocSnapshot.exists()) {
+      return {
         success: false,
-        error: `User with ID ${userId} does not exists`,
+        error: `User with ID ${userId} does not exist.`,
+      };
     }
-  }
 
-  const allowerdUserCollection = collection(testUserDoc, "allowedUsers");
-  const allowedUserDocRef = doc(allowerdUserCollection, userToAdd);
+    // Add to the allowed users sub-collection
+    const allowedUsersCollection = collection(userDocRef, "allowedUsers");
+    const allowedUserDocRef = doc(allowedUsersCollection, userToAdd);
 
-  await setDoc(allowedUserDocRef, {allowedUser: userToAdd});
-  const docRef = await getDoc(allowedUserDocRef);
-  const data = docRef.data();
+    await setDoc(allowedUserDocRef, { allowedUser: userToAdd });
 
-  return {
+    // Confirm success
+    const addedDocSnapshot = await getDoc(allowedUserDocRef);
+    const addedData = addedDocSnapshot.data();
+
+    return {
       success: true,
-      data,
+      data: addedData,
     };
   } catch (error) {
-    // Catch and return any unexpected errors
+    // Handle unexpected errors
+    console.error("Error in addAllowedUser:", error);
     return {
       success: false,
       error: error.message || "An unknown error occurred.",
     };
-    }
+  }
 }

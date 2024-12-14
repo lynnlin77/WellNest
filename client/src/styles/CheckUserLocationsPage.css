@@ -1,0 +1,104 @@
+/* Base font style */
+.check-user-locations-page {
+  font-family: 'Parkinsans', sans-serif;
+}
+
+.check-user-locations-header {
+  text-align: center;
+  position: relative; /* Keeps the header context for absolute positioning */
+}
+
+h1 {
+  color: purple;
+}
+
+h2 {
+  margin-top: 20px;
+}
+
+.user-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align items for consistency */
+}
+
+/* Email input field */
+.email-input {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 0px solid #ccc;
+  font-family: 'Parkinsans', sans-serif;
+  color: #333; /* Change text color */
+  background-color: #f0f0f0; /* Background color */
+  width: 600px;
+  height: 25px;
+}
+
+/* User box styles */
+.user-box {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  width: 600px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align content to the left */
+}
+
+.user-box:hover {
+  background-color: #dcdcdc; /* Highlight when hovered */
+}
+
+.user-name {
+  font-weight: bold;
+  margin: 0;
+}
+
+.user-email {
+  margin: 0;
+}
+
+/* Go Back Button Positioning */
+.check-user-locations-page .go-back-button-container {
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+}
+
+.check-user-locations-page .go-back-button-container button {
+  padding: 10px 20px;
+  background-color: purple;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.check-user-locations-page .go-back-button-container button:hover {
+  background-color: #1e0066;
+}
+
+/* User Data Button Positioning (if needed, bottom-right corner) */
+.user-data-button-container {
+  position: absolute;
+  bottom: 30px;
+  right: 20px;
+}
+
+.user-data-button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.user-data-button:hover {
+  background-color: #45a049;
+}

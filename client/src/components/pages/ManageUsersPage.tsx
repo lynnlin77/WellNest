@@ -1,100 +1,8 @@
-// // import React, { useState } from "react";
-// // import StyledButton from "../StyledButton";
-// // import "../../styles/ManageUsersPage.css"; // Import CSS specific to the Manage Users page
-// // import UserPage from "./UserPage"; // Import UserPage for conditional rendering
-
-// // interface ManageUsersPageProps {
-// //   onBack: () => void;
-// // }
-
-// // interface User {
-// //   name: string;
-// //   email: string;
-// // }
-
-// // function ManageUsersPage({ onBack }: ManageUsersPageProps) {
-// //   const [users, setUsers] = useState<User[]>([
-// //     { name: "John Doe", email: "johndoe@example.com" },
-// //     { name: "Jane Smith", email: "janesmith@example.com" },
-// //   ]);
-// //   const [newUserEmail, setNewUserEmail] = useState("");
-// //   const [selectedUser, setSelectedUser] = useState<User | null>(null); // Track the selected user
-
-// //   // Handle adding a new user
-// //   const handleAddUser = () => {
-// //     if (newUserEmail) {
-// //       setUsers([
-// //         ...users,
-// //         { name: "New User", email: newUserEmail },
-// //       ]);
-// //       setNewUserEmail("");
-// //     } else {
-// //       alert("Please enter a valid email address.");
-// //     }
-// //   };
-
-// //   // Function to handle user click and navigate to UserPage
-// //   const handleUserClick = (user: User) => {
-// //     setSelectedUser(user); // Set the selected user
-// //   };
-
-// //   // If a user is selected, show the UserPage
-// //   if (selectedUser) {
-// //     return <UserPage user={selectedUser} onBack={() => setSelectedUser(null)} />;
-// //   }
-
-// //   return (
-// //     <div className="manage-users-page">
-// //       <header className="manage-users-header">
-// //         <h1>WellNest Manage Users</h1>
-// //       </header>
-
-// //       <div className="user-container">
-// //         <h2>Current Allowed Users</h2>
-// //         {/* Display users in boxes */}
-// //         {users.map((user, index) => (
-// //           <div
-// //             key={index}
-// //             className="user-box"
-// //             onClick={() => handleUserClick(user)} // Handle user click
-// //           >
-// //             <p className="user-name">{user.name}</p>
-// //             <p className="user-email">{user.email}</p>
-// //           </div>
-// //         ))}
-
-// //         {/* Empty box for adding a new user */}
-// //         <input
-// //           type="email"
-// //           value={newUserEmail}
-// //           onChange={(e) => setNewUserEmail(e.target.value)}
-// //           placeholder="Enter email to add user"
-// //           className="email-input"
-// //         />
-// //       </div>
-
-// //       <div className="add-user-container">
-// //         <button onClick={handleAddUser} className="add-user-button">
-// //           Add User
-// //         </button>
-// //         <p className="add-user-text">Click to add a user</p>
-// //       </div>
-
-// //       <div className="go-back-button-container">
-// //         <StyledButton onClick={onBack} color="purple">
-// //           Go Back
-// //         </StyledButton>
-// //       </div>
-// //     </div>
-// //   );
-// // }
-
-// // export default ManageUsersPage;
-
 // import React, { useState, useEffect } from "react";
 // import StyledButton from "../StyledButton";
 // import "../../styles/ManageUsersPage.css"; // Import CSS specific to the Manage Users page
-// import UserPage from "./UserPage";
+// import { useUser } from "@clerk/clerk-react";
+// import { addAllowedUserAPI } from "../api";
 
 // interface ManageUsersPageProps {
 //   onBack: () => void;
@@ -107,65 +15,64 @@
 // }
 
 // function ManageUsersPage({ onBack }: ManageUsersPageProps) {
-//   const [users, setUsers] = useState<User[]>([
-//     { name: "John Doe", email: "johndoe@example.com", userId: "1" },
-//     { name: "Jane Smith", email: "janesmith@example.com", userId: "2" },
-//   ]);
+//   const [users, setUsers] = useState<User[]>([]);
 //   const [newUserEmail, setNewUserEmail] = useState("");
-//   const [selectedUser, setSelectedUser] = useState<User | null>(null); 
 //   const [error, setError] = useState<string | null>(null);
 //   const [userId, setUserId] = useState<string>("");
 
-//   const getLoggedInUserId = () => {
-//     const userId = localStorage.getItem("loggedInUserId");
-//     return userId || "";
-//   };
+//   const { user } = useUser(); // Fetch the logged-in user
 
+//   // Load users from localStorage when the component mounts
 //   useEffect(() => {
-//     const loggedInUserId = getLoggedInUserId();
-//     setUserId(loggedInUserId);
-//   }, []);
+//     const savedUsers = localStorage.getItem("allowedUsers");
+//     if (savedUsers) {
+//       setUsers(JSON.parse(savedUsers));
+//     }
+
+//     if (user) {
+//       setUserId(user.id);
+//     }
+//   }, [user]);
 
 //   const handleAddUser = async () => {
-//     if (newUserEmail) {
-//       try {
-//         const response = await fetch("http://localhost:3000/add-allowed-user", {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//           body: JSON.stringify({
-//             userId,
-//             userToAdd: newUserEmail,
-//           }),
-//         });
-
-//         const data = await response.json();
-
-//         if (response.ok && data.success) {
-//           setUsers([
-//             ...users,
-//             { name: "New User", email: newUserEmail, userId: "new_user_id" },
-//           ]);
-//           setNewUserEmail("");
-//         } else {
-//           setError(data.error || "Failed to add user. Please try again.");
-//         }
-//       } catch (err) {
-//         setError("Failed to add user. Please try again.");
-//       }
-//     } else {
+//     // Validate the input email address
+//     if (!newUserEmail) {
 //       setError("Please enter a valid email address.");
+//       return;
+//     }
+
+//     // Validate the email format using a regex
+//     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//     if (!emailRegex.test(newUserEmail)) {
+//       setError("Invalid email format. Please enter a valid email address.");
+//       return;
+//     }
+
+//     // Proceed to call the API to add the allowed user
+//     try {
+//       // Call the addAllowedUserAPI function, passing the logged-in userId and the new user's email
+//       const response = await addAllowedUserAPI(userId, newUserEmail);
+
+//       if (response.success) {
+//         // If successful, update the users list with the newly added user
+//         const newUser = { name: "New User", email: newUserEmail, userId: `user-${Date.now()}` };
+//         setUsers((prevUsers) => {
+//           const updatedUsers = [...prevUsers, newUser];
+//           // Store updated users list in localStorage
+//           localStorage.setItem("allowedUsers", JSON.stringify(updatedUsers));
+//           return updatedUsers;
+//         });
+//         setNewUserEmail(""); // Clear the input field
+//         setError(null); // Clear any previous errors
+//       } else {
+//         setError(response.message || "Failed to add user. Please try again.");
+//       }
+//     } catch (err) {
+//       // Handle any unexpected errors
+//       console.error("Error in handleAddUser:", err);
+//       setError("An unexpected error occurred. Please try again.");
 //     }
 //   };
-
-//   const handleUserClick = (user: User) => {
-//     setSelectedUser(user);
-//   };
-
-//   if (selectedUser) {
-//     return <UserPage user={selectedUser} onBack={() => setSelectedUser(null)} />;
-//   }
 
 //   return (
 //     <div className="manage-users-page">
@@ -175,17 +82,15 @@
 
 //       <div className="user-container">
 //         <h2>Current Allowed Users</h2>
+//         {/* Display users in boxes */}
 //         {users.map((user, index) => (
-//           <div
-//             key={index}
-//             className="user-box"
-//             onClick={() => handleUserClick(user)}
-//           >
+//           <div key={index} className="user-box">
 //             <p className="user-name">{user.name}</p>
 //             <p className="user-email">{user.email}</p>
 //           </div>
 //         ))}
-//         {/* User email input */}
+
+//         {/* Input for adding a new user */}
 //         <input
 //           type="email"
 //           value={newUserEmail}
@@ -195,11 +100,12 @@
 //         />
 //       </div>
 
-//       {/* Add User Button and Error Message */}
 //       <div className="add-user-container">
+//         {/* Add User Button */}
 //         <button onClick={handleAddUser} className="add-user-button">
 //           Add User
 //         </button>
+//         {/* Error Message */}
 //         {error && <p className="error-message">{error}</p>}
 //       </div>
 
@@ -218,7 +124,8 @@
 import React, { useState, useEffect } from "react";
 import StyledButton from "../StyledButton";
 import "../../styles/ManageUsersPage.css"; // Import CSS specific to the Manage Users page
-import UserPage from "./UserPage";
+import { useUser } from "@clerk/clerk-react";
+import { addAllowedUserAPI } from "../api";
 
 interface ManageUsersPageProps {
   onBack: () => void;
@@ -231,71 +138,61 @@ interface User {
 }
 
 function ManageUsersPage({ onBack }: ManageUsersPageProps) {
-  const [users, setUsers] = useState<User[]>([
-    { name: "John Doe", email: "johndoe@example.com", userId: "1" },
-    { name: "Jane Smith", email: "janesmith@example.com", userId: "2" },
-  ]);
+  const [users, setUsers] = useState<User[]>([]);
   const [newUserEmail, setNewUserEmail] = useState("");
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string>("");
-
-  // Fetch the logged-in user's ID from localStorage
-  const getLoggedInUserId = () => {
-    const userId = localStorage.getItem("loggedInUserId");
-    return userId || "";
-  };
+  const { user } = useUser();
 
   useEffect(() => {
-    const loggedInUserId = getLoggedInUserId();
-    setUserId(loggedInUserId);
-  }, []);
+    // Whenever the user changes, reset to an empty state
+    if (user) {
+      const storageKey = `allowedUsers-${user.id}`;
+      const savedUsers = localStorage.getItem(storageKey);
 
-  // Handle adding a new user
-  const handleAddUser = async () => {
-    if (newUserEmail) {
-      try {
-        const response = await fetch("http://localhost:3000/add-allowed-user", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId,
-            userToAdd: newUserEmail,
-          }),
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.success) {
-          // Update the user list with the new user
-          setUsers([
-            ...users,
-            { name: "New User", email: newUserEmail, userId: "new_user_id" },
-          ]);
-          setNewUserEmail(""); // Clear the input field
-          setError(null); // Clear any existing error
-        } else {
-          setError(data.error || "Failed to add user. Please try again.");
-        }
-      } catch (err) {
-        setError("Failed to add user. Please try again.");
+      if (savedUsers) {
+        // Load existing users for this user
+        setUsers(JSON.parse(savedUsers));
+      } else {
+        // Reset users list for new user
+        setUsers([]);
+        localStorage.setItem(storageKey, JSON.stringify([]));
       }
-    } else {
+    }
+  }, [user]);
+
+  const handleAddUser = async () => {
+    if (!newUserEmail) {
       setError("Please enter a valid email address.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(newUserEmail)) {
+      setError("Invalid email format. Please enter a valid email address.");
+      return;
+    }
+
+    try {
+      const storageKey = `allowedUsers-${user?.id}`;
+      const response = await addAllowedUserAPI(user?.id || "", newUserEmail);
+
+      if (response.success) {
+        const newUser = { name: "New User", email: newUserEmail, userId: `user-${Date.now()}` };
+        setUsers((prevUsers) => {
+          const updatedUsers = [...prevUsers, newUser];
+          localStorage.setItem(storageKey, JSON.stringify(updatedUsers));
+          return updatedUsers;
+        });
+        setNewUserEmail("");
+        setError(null);
+      } else {
+        setError(response.message || "Failed to add user. Please try again.");
+      }
+    } catch (err) {
+      console.error("Error in handleAddUser:", err);
+      setError("An unexpected error occurred. Please try again.");
     }
   };
-
-  // Handle user selection to navigate to the UserPage
-  const handleUserClick = (user: User) => {
-    setSelectedUser(user);
-  };
-
-  // Render the UserPage if a user is selected
-  if (selectedUser) {
-    return <UserPage user={selectedUser} onBack={() => setSelectedUser(null)} />;
-  }
 
   return (
     <div className="manage-users-page">
@@ -305,19 +202,13 @@ function ManageUsersPage({ onBack }: ManageUsersPageProps) {
 
       <div className="user-container">
         <h2>Current Allowed Users</h2>
-        {/* Display users in boxes */}
         {users.map((user, index) => (
-          <div
-            key={index}
-            className="user-box"
-            onClick={() => handleUserClick(user)}
-          >
+          <div key={index} className="user-box">
             <p className="user-name">{user.name}</p>
             <p className="user-email">{user.email}</p>
           </div>
         ))}
 
-        {/* Input for adding a new user */}
         <input
           type="email"
           value={newUserEmail}
@@ -328,15 +219,12 @@ function ManageUsersPage({ onBack }: ManageUsersPageProps) {
       </div>
 
       <div className="add-user-container">
-        {/* Add User Button */}
         <button onClick={handleAddUser} className="add-user-button">
           Add User
         </button>
-        {/* Error Message */}
         {error && <p className="error-message">{error}</p>}
       </div>
 
-      {/* Go Back Button */}
       <div className="go-back-button-container">
         <StyledButton onClick={onBack} color="purple">
           Go Back
@@ -347,3 +235,149 @@ function ManageUsersPage({ onBack }: ManageUsersPageProps) {
 }
 
 export default ManageUsersPage;
+
+
+
+
+// CLERK
+// import React, { useState, useEffect } from "react";
+// import StyledButton from "../StyledButton";
+// import "../../styles/ManageUsersPage.css"; // Import CSS specific to the Manage Users page
+// import { ClerkProvider, useClerk, useUser } from "@clerk/clerk-react";
+
+// interface ManageUsersPageProps {
+//   onBack: () => void;
+// }
+
+// interface User {
+//   name: string;
+//   email: string;
+//   userId: string;
+// }
+
+// function ManageUsersPage({ onBack }: ManageUsersPageProps) {
+//   const [users, setUsers] = useState<User[]>([]);
+//   const [newUserEmail, setNewUserEmail] = useState("");
+//   const [error, setError] = useState<string | null>(null);
+//   const [userId, setUserId] = useState<string>("");
+
+//   const { user } = useUser(); // Fetch the logged-in user
+//   const { client } = useClerk();
+
+//   useEffect(() => {
+//     if (user) {
+//       setUserId(user.id);
+//       // Fetch the list of users from the backend (instead of directly from Clerk)
+//       fetch("http://localhost:3000/get-users")
+//         .then((response) => response.json())
+//         .then((data) => {
+//           // Assuming the backend returns a list of users in the same format
+//           setUsers(data.users);
+//         })
+//         .catch((err) => {
+//           console.error("Error fetching users:", err);
+//           setError("Failed to load users.");
+//         });
+//     }
+//   }, [user]); // Fetch users whenever the logged-in user changes
+
+//   // Handle adding a new user
+//   const handleAddUser = async () => {
+//     if (!newUserEmail) {
+//       setError("Please enter a valid email address.");
+//       return;
+//     }
+
+//     try {
+//       // Fetch the list of users from the backend again (you could optimize this)
+//       const response = await fetch("http://localhost:3000/get-users");
+//       const data = await response.json();
+//       const userToAdd = data.users.find(
+//         (u: User) => u.email === newUserEmail
+//       );
+
+//       if (!userToAdd) {
+//         setError("This email is not registered in our system.");
+//         return;
+//       }
+
+//       // Call the backend API to add the user to the allowed list
+//       const addUserResponse = await fetch("http://localhost:3000/add-allowed-user", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({
+//           userId,
+//           userToAddEmail: newUserEmail,
+//         }),
+//       });
+
+//       const addUserData = await addUserResponse.json();
+//       if (addUserResponse.ok && addUserData.success) {
+//         setUsers((prevUsers) => [
+//           ...prevUsers,
+//           {
+//             name: userToAdd.name || "New User",
+//             email: newUserEmail,
+//             userId: userToAdd.userId,
+//           },
+//         ]);
+//         setNewUserEmail(""); // Clear the input field
+//         setError(null); // Clear any existing error
+//       } else {
+//         setError(addUserData.error || "Failed to add user. Please try again.");
+//       }
+//     } catch (err) {
+//       console.error(err);
+//       setError("An unexpected error occurred. Please try again.");
+//     }
+//   };
+
+//   return (
+//     <div className="manage-users-page">
+//       <header className="manage-users-header">
+//         <h1>WellNest Manage Users</h1>
+//       </header>
+
+//       <div className="user-container">
+//         <h2>Current Allowed Users</h2>
+//         {/* Display users in boxes */}
+//         {users.map((user, index) => (
+//           <div key={index} className="user-box">
+//             <p className="user-name">{user.name}</p>
+//             <p className="user-email">{user.email}</p>
+//           </div>
+//         ))}
+
+//         {/* Input for adding a new user */}
+//         <input
+//           type="email"
+//           value={newUserEmail}
+//           onChange={(e) => setNewUserEmail(e.target.value)}
+//           placeholder="Enter email to add user"
+//           className="email-input"
+//         />
+//       </div>
+
+//       <div className="add-user-container">
+//         {/* Add User Button */}
+//         <button onClick={handleAddUser} className="add-user-button">
+//           Add User
+//         </button>
+//         {/* Error Message */}
+//         {error && <p className="error-message">{error}</p>}
+//       </div>
+
+//       {/* Go Back Button */}
+//       <div className="go-back-button-container">
+//         <StyledButton onClick={onBack} color="purple">
+//           Go Back
+//         </StyledButton>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default ManageUsersPage;
+
