@@ -145,6 +145,7 @@ function CheckInPage({ onBack }: CheckInPageProps) {
     }
 
     const userId = user.id;
+    const userEmail = user.primaryEmailAddress?.emailAddress;
 
     if (!navigator.geolocation) {
       alert("Geolocation is not supported by your browser.");
@@ -158,7 +159,7 @@ function CheckInPage({ onBack }: CheckInPageProps) {
         const time = new Date().toISOString();
 
         try {
-          const result = await addLocation(userId, lat, long, time);
+          const result = await addLocation(userEmail, lat, long, time);
           if (result.success && result.data) {
             const { lat = 0, long = 0, time = "N/A" } = result.data;
             setLastCheckIn({ lat, long, time });
