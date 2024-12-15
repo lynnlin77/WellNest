@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/clerk-react"; // Import the useUser hook
 import StyledButton from "../StyledButton";
 import "../../styles/CheckUserLocationsPage.css"; // Import the specific CSS
-import { getAllowedUsers, getLocation } from "../../components/api"; // Ensure `getLocation` is available
+import { getAllowedUsers, getLocation } from "../../components/api"; 
 
 interface CheckUserLocationsPageProps {
   onBack: () => void;
@@ -16,7 +16,7 @@ interface User {
 function CheckUserLocationsPage({ onBack }: CheckUserLocationsPageProps) {
   const { user } = useUser(); // Fetch the logged-in user
   const [users, setUsers] = useState<User[]>([]);
-  const [selectedUserLocation, setSelectedUserLocation] = useState<any>(null); // Store selected user's location data
+  const [selectedUserLocation, setSelectedUserLocation] = useState<any>(null); 
   const [error, setError] = useState<string | null>(null);
 
   // Fetch email from emailAddresses (assuming the user has emailAddresses)
@@ -58,7 +58,7 @@ function CheckUserLocationsPage({ onBack }: CheckUserLocationsPageProps) {
         setError("Location data is missing for this user.");
       }
     } catch (err) {
-      console.error(err); // Log the error to see if there is any issue
+      console.error(err); 
       setError("Failed to fetch location data. Please try again.");
     }
   };
