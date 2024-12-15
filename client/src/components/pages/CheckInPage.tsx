@@ -32,6 +32,12 @@ function CheckInPage({ onBack }: CheckInPageProps) {
     }
   }, [user]);
 
+
+  const formatDateTimeString = (dateTimeString: string): string => {
+    const date = new Date(dateTimeString);
+    return date.toLocaleString();
+  };
+
   const handleCheckIn = async () => {
     if (!user || !user.emailAddresses || user.emailAddresses.length === 0) {
       alert("User information not found. Please log in again.");
@@ -50,7 +56,7 @@ function CheckInPage({ onBack }: CheckInPageProps) {
       async (position) => {
         const lat = position.coords.latitude;
         const long = position.coords.longitude;
-        const time = new Date().toLocaleTimeString();
+        const time = new Date().toISOString();
 
         try {
           const result = await addLocation(userEmail, lat, long, time);
@@ -88,7 +94,7 @@ function CheckInPage({ onBack }: CheckInPageProps) {
         </StyledButton>
 
         <div className="paragraph-container">
-          <p>Last checked in: {lastCheckIn.time || "N/A"}</p>
+          <p>Last checked in: {formatDateTimeString(lastCheckIn.time) || "N/A"}</p>
           <p>
             Location: {lastCheckIn.lat !== 0 && lastCheckIn.long !== 0
               ? `${lastCheckIn.lat}, ${lastCheckIn.long}`
