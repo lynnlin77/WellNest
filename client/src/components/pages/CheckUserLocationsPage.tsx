@@ -118,3 +118,4 @@ function CheckUserLocationsPage({ onBack }: CheckUserLocationsPageProps) {
 }
 
 export default CheckUserLocationsPage;
+

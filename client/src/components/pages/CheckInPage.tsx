@@ -39,7 +39,7 @@ function CheckInPage({ onBack }: CheckInPageProps) {
     }
 
     const userId = user.id;
-    const userEmail = user.primaryEmailAddress?.emailAddress;
+    const userEmail = user.primaryEmailAddress;
 
     if (!navigator.geolocation) {
       alert("Geolocation is not supported by your browser.");
