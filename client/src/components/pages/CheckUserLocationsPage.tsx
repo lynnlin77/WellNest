@@ -93,6 +93,17 @@ function CheckUserLocationsPage({ onBack }: CheckUserLocationsPageProps) {
           <h3>Location of {users.find(u => u.id === selectedUserLocation?.userId)?.allowedUser}</h3>
           <p>Latitude: {selectedUserLocation.latitude}</p>
           <p>Longitude: {selectedUserLocation.longitude}</p>
+          
+          {/* Button to view selected user's location on Google Maps */}
+          <button
+            className="map-button"
+            onClick={() =>
+              window.open(`https://maps.google.com/?q=${selectedUserLocation.latitude},${selectedUserLocation.longitude}`, "_blank")
+            }
+          >
+            <img src="/path-to-map-icon.svg" alt="Map Icon" className="map-icon" />
+            View on Map
+          </button>
         </div>
       ) : null}
 

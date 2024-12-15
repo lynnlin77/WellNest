@@ -102,3 +102,33 @@ h2 {
 .user-data-button:hover {
   background-color: #45a049;
 }
+
+.map-button {
+  display: flex;
+  align-items: center;
+  background-color: #007BFF; 
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px; 
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: fit-content;
+  margin-top: 10px;
+}
+
+.map-button:hover {
+  background-color: #0056b3; 
+  transform: scale(1.05); 
+}
+
+.map-button:active {
+  transform: scale(0.98); 
+}
+
+.map-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
