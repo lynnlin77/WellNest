@@ -144,4 +144,3 @@ export const getAllowedUsers = async (
     return { success: false, message: errorMessage };
   }
 };
-
