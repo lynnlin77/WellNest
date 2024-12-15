@@ -50,7 +50,7 @@ function CheckInPage({ onBack }: CheckInPageProps) {
       async (position) => {
         const lat = position.coords.latitude;
         const long = position.coords.longitude;
-        const time = new Date().toISOString();
+        const time = new Date().toLocaleTimeString();
 
         try {
           const result = await addLocation(userEmail, lat, long, time);
