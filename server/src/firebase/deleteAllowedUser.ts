@@ -2,21 +2,40 @@ import { z } from "zod";
 import { firestore } from "./index.js";
 import { collection, doc, deleteDoc, getDoc } from "firebase/firestore";
 
+
+/**
+ * Define schema to validate the input for each query to the deleteAllowedUser handler. 
+ * userId must be an email address and must be provided. This is the email of the current user. 
+ * userToAdd must be an email address and must be provided. This is the email of the user that 
+ * the current user wants to remove from the users that can see their location.
+*/
+
 export const deleteAllowedUserQuerySchema = z.object({
-  userId: z.string().nonempty("userId is required."),
-  userToDelete: z.string().email("userToDelete must be a valid email address."),
+  userId:  z.string()
+    .nonempty("userId is required.")
+    .email("userId must be a valid email address."),
+  userToDelete: z.string()
+    .nonempty("userToDelete is required.")
+    .email("userToDelete must be a valid email address."),
 });
 
+/**
+ * Asyncronous function that removes the usetToDelete to the list of allowed 
+ * users of userId.  
+ * It returns the data just removed from the document.
+ * 
+ * @param param0 
+ * @returns 
+ */
 export async function deleteAllowedUser({
   userId,
   userToDelete,
 }: z.infer<typeof deleteAllowedUserQuerySchema>) {
   try {
-    // Firestore collections and documents
     const usersCollection = collection(firestore, "users");
     const userDocRef = doc(usersCollection, userId);
 
-    // Check if the user exists
+    //cCheck if the requested user exists
     const userDocSnapshot = await getDoc(userDocRef);
     if (!userDocSnapshot.exists()) {
       return {
