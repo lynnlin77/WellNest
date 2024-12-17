@@ -3,7 +3,8 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm with-env tsx watch src/index.ts",
-    "with-env": "dotenv -e .env --"
+    "with-env": "dotenv -e .env --",
+    "test": "vitest"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",
@@ -17,7 +18,8 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/node": "^20.11.17",
-    "tsx": "^4.7.1"
+    "@types/node": "^20.17.9",
+    "tsx": "^4.7.1",
+    "vitest": "^2.1.8"
   }
 }
