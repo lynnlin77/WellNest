@@ -1,5 +1,91 @@
-# Project-WellNest-qlin23-adifabio-mmunizde-jnishimu
-Our application WellNest is an interactive app catered towards the elderly and their loved ones. The main purpose of WellNest is allowing the elderly to easily alert their location and safety to their loved ones. Oftentimes the elderly have difficulty navigating apps and things online, so we have tried to make this application simple.
+# Wellnest
+## About Project
+WellNest is a web app designed to keep seniors connected and safe. It allows elderly users to:
+- Check in daily with one tap to confirm their well-being.
+- Alert caregivers automatically if a check-in is missed.
+- Build community by sharing statuses with approved friends.
+### Why WellNest?
+- Solves the anxiety of long-distance caregiving.
+- Simple, senior-friendly interface (no tech skills needed).
+- Privacy-first: Only trusted contacts see check-in data.
 
-How to: when you first open our application, you will see a “Sign up” and “Sign in” button. Both make use of Clerk authentication. Once you have signed up and signed in, a login button will appear. Once you click this, you will be at the main dashboard of our application. They dashboard shows 3 main buttons. The top one is a “Check in” button, which is for the elderly. The elderly can click that button, which then sends them to the Check in page where they can click the check in button to update their location and time. The most recent check in time and location for each respective user is displayed on this page and the data is stored in the backend through our addLocation handler. Going back to the dashboard, the next button on the page is the “Manage Users” page. Clicking this button navigates you to the page where you can add users that can view your location. To do this, put the email address of the person into the input box and click “Add User”. If the email address is a valid email address, the user will be added to the “Allowed Users” part and this data will be stored in the backend through the AddAllowedUsers handler. You can then go back to the dashboard and click the “Check Location” button, which sends you to the check locations page. This page shows a list
-of the users that have you on their allowed users list. This part gets previous allowed user data from the backend from the getAllowedUsers handler. You can click on each of the users to go to the users page, which displays their last checked location and time, which is data from the getLocation handler.
+## Tech Stack
+
+**Frontend**: React (UI), TailwindCSS (styling), Mapbox (maps)  
+**Backend**: Firebase (database), Node.js (server logic)  
+**Services**: Clerk (auth), Resend (emails), Mapbox API (locations)  
+
+*Combining developer efficiency with senior-friendly accessibility*
+
+## Features
+
+### One-Tap Check-In
+- Seniors confirm their safety with a single, large button press
+- Daily check-ins take less than 5 seconds to complete
+
+### Missed Check-In Alerts
+- Automatic email notifications to caregivers when check-ins are missed
+- Configurable alert thresholds (e.g., 24hrs no check-in)
+
+### Friend Network
+- Private status sharing between approved friends
+- "Circle of care" visibility for added peace of mind
+
+### Admin Dashboard
+- Real-time monitoring of all user check-ins
+- Case management for follow-ups on missed check-ins
+
+## Installation
+
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/your-org/WellNest.git
+   ```
+
+2. **Install dependencies**  
+   ```bash
+   cd WellNest && npm install
+   ```
+
+3. **Set up environment variables**  
+   ```bash
+   cp .env.example .env
+   ```
+
+   Then update `.env` with your actual keys:  
+   ```env
+   CLERK_PUBLISHABLE_KEY=your_key_here  
+   FIREBASE_CONFIG=your_config_here
+   ```
+
+4. **Run the development server**  
+   ```bash
+   npm run dev
+   ```
+
+   The app will be available at [http://localhost:3000](http://localhost:3000)
+
+## Contributing
+
+We welcome contributions! To get started:
+
+1. **Fork the repository**
+
+2. **Create a feature branch**  
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+
+3. **Commit your changes**  
+   ```bash
+   git commit -m "Add amazing feature"
+   ```
+
+4. **Push to your branch**  
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+
+5. **Open a Pull Request**
+
+Feel free to suggest improvements, report bugs, or add new features!
